@@ -13,12 +13,12 @@ def datatukuri(po_m = 9699, idx = 'tpf'):
     '''
     
     # まずはPOデータベースの読み込み
-    data = pd.read_excel('filename.xlsx', index_col='anounce-date')
+    data = pd.read_excel('D:/Docs2/kabudata/po_data.xlsx', index_col='anounce-date')
     data.index = pd.to_datetime(data.index)
     data = data.sort_index()
     
     # 次にPO銘柄の価格データを作成
-    po_meigara = pd.read_csv('{}.csv'.format(po_m), index_col='日付', encoding='ANSI', thousands=',')
+    po_meigara = pd.read_csv('D:/Docs2/kabudata/{}.csv'.format(po_m), index_col='日付', encoding='ANSI', thousands=',')
     po_meigara.index = pd.to_datetime(po_meigara.index)
     po_meigara = po_meigara.sort_index()
     po_meigara1 = po_meigara.iloc[:, :4]
@@ -32,7 +32,7 @@ def datatukuri(po_m = 9699, idx = 'tpf'):
     
     # 次にインデックス
     
-    market = pd.read_csv('{}.csv'.format(idx),index_col='日付',thousands=',', encoding='ANSI')
+    market = pd.read_csv('D:/Docs2/kabudata/{}.csv'.format(idx),index_col='日付',thousands=',', encoding='ANSI')
     market.index =  pd.to_datetime(market.index)
     market = market.sort_index()
     market1 = market.iloc[:, :4]
@@ -60,7 +60,7 @@ def chart_date(po_Meigara='a', market='b', spread='c', name='d'):
     日付ベースのPO銘柄のパフォーマンス、指数のパフォーマンス、
     そのロングショートのスプレッドの動きを示すグラフを作る。
     '''
-    p = figure(width=700, height=300, x_axis_type='datetime', title='PO銘柄（緑）と指数（青）')
+    p = figure(width=700, height=300, x_axis_type='datetime', title='{}（緑）と指数（青）'.format(name))
     p1 = figure(width=700, height = 200, x_axis_type='datetime', title='スプレッド')
     
     p.line(po_Meigara.index, po_Meigara['終値'], line_color='green', line_width=3)
